@@ -4,7 +4,7 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- Customize your theme here. -->
 
-        <item name="android:windowTranslucentStatus">true</item>
+        <!--<item name="android:windowTranslucentStatus">true</item>-->
         <!--<item name="android:windowContentOverlay">@null</item>-->
         <!--<item name="android:fitsSystemWindows">true</item>-->
     </style>

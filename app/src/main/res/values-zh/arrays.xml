@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <array name="left_menu_navigation_list">
+        <item>新闻简读</item>
+        <item>图片浏览</item>
+        <item>视频爽看</item>
+        <item>音乐轻听</item>
+    </array>
+
+</resources>

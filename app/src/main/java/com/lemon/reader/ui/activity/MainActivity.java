@@ -1,18 +1,28 @@
-package com.lemon.reader;
+package com.lemon.reader.ui.activity;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.lemon.reader.R;
+import com.lemon.reader.base.BaseActivity;
 
-public class MainActivity extends ActionBarActivity {
+
+public class MainActivity extends BaseActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    protected int getContentViewLayoutId() {
+        return R.layout.activity_main;
     }
+
+    @Override
+    protected void initView() {
+    }
+
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
