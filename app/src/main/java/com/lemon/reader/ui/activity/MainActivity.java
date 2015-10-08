@@ -1,15 +1,28 @@
 package com.lemon.reader.ui.activity;
 
-import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.lemon.reader.R;
 import com.lemon.reader.base.BaseActivity;
+import com.lemon.reader.ui.adapter.NavigationAdapter;
+import com.lemon.reader.widget.XViewPager;
 
+import java.util.Arrays;
+
+import butterknife.Bind;
 
 public class MainActivity extends BaseActivity {
+
+    @Bind(R.id.containerViewPager)
+    XViewPager containerViewPager;
+
+    @Bind(R.id.listView)
+    ListView listView;
+
+    private NavigationAdapter adapter ;
 
     @Override
     protected int getContentViewLayoutId() {
@@ -18,11 +31,16 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+
+        String[] leftMenus = getResources().getStringArray(R.array.left_menu_navigation_list);
+
+//        adapter =
+//        adapter = new ArrayAdapter<String>(MainActivity.this,R.layout.listitem_left_menu,leftMenus);
+
+        listView.setAdapter(adapter);
+
+
     }
-
-
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
