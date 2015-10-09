@@ -1,6 +1,5 @@
 package com.lemon.reader.bean;
 
-
 public class BaseEntity {
 
     public String id;

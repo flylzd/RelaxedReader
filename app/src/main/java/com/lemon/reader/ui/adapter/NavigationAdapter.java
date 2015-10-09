@@ -56,6 +56,7 @@ public class NavigationAdapter extends BaseAdapter {
         }
         NavigationEntity bean = sourceList.get(position);
         viewHolder.navigationIcon.setImageResource(bean.iconResId);
+//        viewHolder.navigationIcon.setImageDrawable(context.getResources().getDrawable(bean.iconResId));
         viewHolder.navigationName.setText(bean.name);
         return convertView;
     }
@@ -68,7 +69,7 @@ public class NavigationAdapter extends BaseAdapter {
         TextView navigationName;
 
         public ViewHolder(View view) {
-            ButterKnife.bind(view);
+            ButterKnife.bind(this,view);
         }
     }
 }
