@@ -18,4 +18,8 @@
     <dimen name="text_size_14">14sp</dimen>
     <dimen name="text_size_16">16sp</dimen>
 
+    <dimen name="fragment_common_list_smart_tab_padding">20dp</dimen>
+    <dimen name="fragment_common_list_smart_tab_indicator_height">3dp</dimen>
+    <dimen name="fragment_common_list_smart_tab_indicator_radius">2dp</dimen>
+
 </resources>

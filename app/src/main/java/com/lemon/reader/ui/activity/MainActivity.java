@@ -42,7 +42,7 @@ public class MainActivity extends BaseActivity {
     ListView listView;
 
     private NavigationAdapter adapter;
-    private int mCurrentMenuCheckedPos = 0;
+    private int currentMenuCheckedPos = 0;
 
     @Override
     protected int getContentViewLayoutId() {
@@ -56,14 +56,14 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                setTitle(getString(R.string.app_name));
+//                setTitle(getString(R.string.app_name));
             }
 
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
                 if (null != adapter) {
-                    setTitle(((NavigationEntity)adapter.getItem(mCurrentMenuCheckedPos)).name);
+                    setTitle(((NavigationEntity)adapter.getItem(currentMenuCheckedPos)).name);
                 }
             }
         };
@@ -86,6 +86,9 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(MainActivity.this, "position == " + position, Toast.LENGTH_SHORT).show();
+                currentMenuCheckedPos = position;
+                drawerLayout.closeDrawers();
+                containerViewPager.setCurrentItem(currentMenuCheckedPos);
             }
         });
 
@@ -99,11 +102,6 @@ public class MainActivity extends BaseActivity {
             containerViewPager.setOffscreenPageLimit(fragments.size());
             containerViewPager.setAdapter(new VPFragmentAdapter(getSupportFragmentManager(), fragments));
         }
-
-
-
-
-
     }
 
     @Override

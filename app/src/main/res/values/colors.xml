@@ -10,4 +10,6 @@
 
     <color name="rippleColor">#BFBFBF</color>
 
+    <color name="common_list_smart_tab_underline_color">#FFF24B17</color>
+
 </resources>

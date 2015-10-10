@@ -22,10 +22,12 @@ public class NewsContainerFragment extends BaseFragment{
 
     @Override
     protected void initView() {
+
     }
 
     @Override
     protected int getContentViewLayoutID() {
         return R.layout.fragment_news;
     }
+
 }
