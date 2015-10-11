@@ -8,4 +8,17 @@
         <item>Music</item>
     </array>
 
+
+    <array name="images_category_list">
+        <item>Beauty</item>
+        <item>Cartoon</item>
+        <item>Star</item>
+        <item>Car</item>
+        <item>Photography</item>
+        <item>Food</item>
+    </array>
+
+
+
+
 </resources>
