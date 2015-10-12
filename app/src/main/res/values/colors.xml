@@ -4,6 +4,9 @@
     <color name="primary">#c6030b</color>
     <color name="primary_dark">#c6030b</color>
     <color name="status_bar_color">@color/primary_dark</color>
+    <color name="window_background">#FFFEFEFE</color>
+
+    <color name="default_image_background">#FFDEDEDE</color>
 
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>

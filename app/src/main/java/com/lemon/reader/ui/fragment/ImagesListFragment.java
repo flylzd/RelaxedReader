@@ -25,7 +25,8 @@ public class ImagesListFragment extends BaseFragment {
 
     @Bind(R.id.recyclerView)
     RecyclerView recyclerView;
-    private ImagesListAdapter adapter = new ImagesListAdapter();
+//    private ImagesListAdapter adapter = new ImagesListAdapter(getActivity());
+    private ImagesListAdapter adapter;
 
     private int currentPage = 0;
     private static String currentImagesCategory = null;
@@ -42,7 +43,7 @@ public class ImagesListFragment extends BaseFragment {
 
         boolean isConnected = NetworkUtils.isNetworkConnected(getActivity());
         if (isConnected) {
-//            getCommonListData(TAG, AppConstants.EVENT_REFRESH_DATA, currentImagesCategory, currentPage);
+            getCommonListData(TAG, AppConstants.EVENT_REFRESH_DATA, currentImagesCategory, currentPage);
         } else {
 
         }
@@ -59,10 +60,15 @@ public class ImagesListFragment extends BaseFragment {
     @Override
     protected void initView() {
 
+        adapter = new ImagesListAdapter(getActivity());
+
         RecyclerView.LayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(staggeredGridLayoutManager);
         recyclerView.setAdapter(adapter);
 
+        materialRefreshLayout.setLoadMore(true);
+        materialRefreshLayout.autoRefreshLoadMore();
+        materialRefreshLayout.finishRefreshLoadMore();
         materialRefreshLayout.setMaterialRefreshListener(new MaterialRefreshListener() {
 
             @Override
@@ -77,6 +83,7 @@ public class ImagesListFragment extends BaseFragment {
                 getCommonListData(TAG, AppConstants.EVENT_LOAD_MORE_DATA, currentImagesCategory, currentPage);
             }
         });
+
     }
 
     @Override
@@ -98,6 +105,8 @@ public class ImagesListFragment extends BaseFragment {
 
         @Override
         public void onSuccess(ResponseImagesListEntity response) {
+
+            System.out.println("response " + response);
 
             if (null == response) {
                 return;

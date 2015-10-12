@@ -7,11 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bumptech.glide.Glide;
 import com.lemon.library.kocore.utils.StringUtils;
 import com.lemon.reader.R;
 import com.lemon.reader.bean.ImagesListEntity;
 import com.lemon.reader.widget.ScaleImageView;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +25,10 @@ public class ImagesListAdapter extends RecyclerView.Adapter<ImagesListAdapter.Vi
     private List<ImagesListEntity> sourceList = new ArrayList<ImagesListEntity>();
 
     public ImagesListAdapter() {
+    }
+
+    public ImagesListAdapter(Context context) {
+        this.context = context;
     }
 
     public ImagesListAdapter(Context context, List<ImagesListEntity> list) {
@@ -52,9 +56,14 @@ public class ImagesListAdapter extends RecyclerView.Adapter<ImagesListAdapter.Vi
         int height = itemData.thumbnailHeight;
         String imageUrl = itemData.thumbnailUrl;
 
-        if (StringUtils.isNotEmpty(imageUrl)){
+        System.out.println("thumbnailUrl = " + imageUrl);
 
+        if (StringUtils.isNotEmpty(imageUrl)){
+            ImageLoader.getInstance().displayImage(imageUrl,holder.itemImage);
+            holder.itemImage.setImageWidth(width);
+            holder.itemImage.setImageHeight(height);
         }
+
     }
 
     @Override
@@ -70,6 +79,7 @@ public class ImagesListAdapter extends RecyclerView.Adapter<ImagesListAdapter.Vi
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+//            itemImage = (ScaleImageView) itemView.findViewById(R.id.image);
         }
     }
 }

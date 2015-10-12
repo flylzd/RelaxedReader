@@ -29,21 +29,6 @@ public class ImagesContainerFragment extends BaseFragment{
     @Override
     protected void onFirstUserVisible() {
 
-    }
-
-    @Override
-    protected void onUserVisible() {
-
-    }
-
-    @Override
-    protected void onUserInvisible() {
-
-    }
-
-    @Override
-    protected void initView() {
-
         String[] imagesCategories = getResources().getStringArray(R.array.images_category_list);
         int size = imagesCategories.length;
         for (int i=0; i<size;i++){
@@ -73,6 +58,22 @@ public class ImagesContainerFragment extends BaseFragment{
 
             }
         });
+
+    }
+
+    @Override
+    protected void onUserVisible() {
+
+    }
+
+    @Override
+    protected void onUserInvisible() {
+
+    }
+
+    @Override
+    protected void initView() {
+
 
     }
 

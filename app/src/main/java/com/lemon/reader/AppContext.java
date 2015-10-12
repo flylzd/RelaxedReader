@@ -6,6 +6,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
 import com.lemon.library.kocore.utils.StringUtils;
+import com.lemon.reader.utils.ImageLoaderHelper;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.Properties;
 import java.util.UUID;
@@ -23,6 +25,8 @@ public class AppContext extends Application {
 //        MobclickAgent.openActivityDurationTrack(false);
 //
 //        init();
+        ImageLoader.getInstance().init(ImageLoaderHelper.getInstance(this).getImageLoaderConfiguration(AppConfig.DEFAULT_SAVE_IMAGE_PATH));
+
     }
 
     /**
