@@ -12,13 +12,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.lemon.kohttp.KOHttpClientManager;
+import com.lemon.reader.api.ApiClient;
+
 import java.lang.reflect.Field;
 
 import butterknife.ButterKnife;
 
 public abstract class BaseLazyFragment extends Fragment {
 
-    private static String TAG = BaseLazyFragment.class.getSimpleName();
+    protected  String TAG = this.getClass().getSimpleName();
 
     protected Context mContext = null;
 
@@ -83,6 +86,7 @@ public abstract class BaseLazyFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+        KOHttpClientManager.cancel(TAG);
     }
 
     @Override

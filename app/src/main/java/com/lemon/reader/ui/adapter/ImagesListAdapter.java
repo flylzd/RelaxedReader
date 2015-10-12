@@ -13,6 +13,7 @@ import com.lemon.reader.R;
 import com.lemon.reader.bean.ImagesListEntity;
 import com.lemon.reader.widget.ScaleImageView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -21,11 +22,18 @@ import butterknife.ButterKnife;
 public class ImagesListAdapter extends RecyclerView.Adapter<ImagesListAdapter.ViewHolder> {
 
     private Context context;
-    private List<ImagesListEntity> sourceList;
+    private List<ImagesListEntity> sourceList = new ArrayList<ImagesListEntity>();
+
+    public ImagesListAdapter() {
+    }
 
     public ImagesListAdapter(Context context, List<ImagesListEntity> list) {
         this.context = context;
         this.sourceList = list;
+    }
+
+    public List<ImagesListEntity> getDataList() {
+        return  sourceList;
     }
 
     @Override

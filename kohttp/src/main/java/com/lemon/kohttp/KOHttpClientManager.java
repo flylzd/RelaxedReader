@@ -53,10 +53,12 @@ public class KOHttpClientManager {
         KOHttpClient.getDefault().get(url, requestParams, responseCallback, tag);
     }
 
-
-
     public static void cancel(Object tag) {
         KOHttpClient.getDefault().cancel(tag);
+    }
+
+    public static void setUserAgent(final String userAgent){
+        KOHttpClient.getDefault().setUserAgent(userAgent);
     }
 
 }

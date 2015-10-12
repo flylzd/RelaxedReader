@@ -23,7 +23,6 @@ import com.lemon.reader.ui.fragment.VideosContainerFragment;
 import com.lemon.reader.widget.XViewPager;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import butterknife.Bind;
@@ -122,7 +121,6 @@ public class MainActivity extends BaseActivity {
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }

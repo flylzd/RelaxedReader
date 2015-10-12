@@ -3,7 +3,7 @@ package com.lemon.reader.bean;
 
 import java.util.List;
 
-public class ImagesListEntity extends BaseEntity {
+public class ImagesListEntity {
 
     public String id;
     public String desc;
