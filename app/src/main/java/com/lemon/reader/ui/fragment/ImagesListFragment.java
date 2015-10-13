@@ -1,20 +1,24 @@
 package com.lemon.reader.ui.fragment;
 
 
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.view.View;
 
 import com.cjj.MaterialRefreshLayout;
 import com.cjj.MaterialRefreshListener;
 import com.lemon.kohttp.callback.GsonCallback;
+import com.lemon.library.kocore.eventbus.EventCenter;
 import com.lemon.library.kocore.utils.NetworkUtils;
 import com.lemon.reader.R;
 import com.lemon.reader.api.ApiClient;
 import com.lemon.reader.base.BaseFragment;
 import com.lemon.reader.bean.ResponseImagesListEntity;
 import com.lemon.reader.ui.adapter.ImagesListAdapter;
-import com.lemon.reader.widget.AppConstants;
+import com.lemon.reader.AppConstants;
+import com.lemon.reader.utils.UIHelper;
 
 import butterknife.Bind;
 
@@ -25,7 +29,7 @@ public class ImagesListFragment extends BaseFragment {
 
     @Bind(R.id.recyclerView)
     RecyclerView recyclerView;
-//    private ImagesListAdapter adapter = new ImagesListAdapter(getActivity());
+    //    private ImagesListAdapter adapter = new ImagesListAdapter(getActivity());
     private ImagesListAdapter adapter;
 
     private int currentPage = 0;
@@ -61,7 +65,23 @@ public class ImagesListFragment extends BaseFragment {
     protected void initView() {
 
         adapter = new ImagesListAdapter(getActivity());
+        adapter.setOnItemClickListener(new ImagesListAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Rect frame = new Rect();
+                getActivity().getWindow().getDecorView().getWindowVisibleDisplayFrame(frame);
+                int statusBarHeight = frame.top;
 
+                int[] location = new int[2];
+                view.getLocationOnScreen(location);
+                location[1] += statusBarHeight;
+
+                int width = view.getWidth();
+                int height = view.getHeight();
+                String imageUrl = adapter.getDataList().get(position).thumbnailUrl;
+                UIHelper.startImagesDetail(getActivity(),imageUrl,location[0],location[1],width,height);
+            }
+        });
         RecyclerView.LayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(staggeredGridLayoutManager);
         recyclerView.setAdapter(adapter);
@@ -83,7 +103,37 @@ public class ImagesListFragment extends BaseFragment {
                 getCommonListData(TAG, AppConstants.EVENT_LOAD_MORE_DATA, currentImagesCategory, currentPage);
             }
         });
+    }
 
+    @Override
+    protected boolean isBindEventBus() {
+        return false;
+    }
+
+    @Override
+    protected void onEventBusHandler(EventCenter eventCenter) {
+        System.out.println("EventCode " + eventCenter.getEventCode());
+        if (eventCenter.getEventCode() == AppConstants.EventBusCode.EVENT_CODE_IMAGE_DETAIL) {
+            View view = eventCenter.getView();
+            if (null != view) {
+                Rect frame = new Rect();
+                getActivity().getWindow().getDecorView().getWindowVisibleDisplayFrame(frame);
+                int statusBarHeight = frame.top;
+
+                int[] location = new int[2];
+                view.getLocationOnScreen(location);
+                location[1] += statusBarHeight;
+
+                int width = view.getWidth();
+                int height = view.getHeight();
+
+                int position = (int) eventCenter.getData();
+                System.out.println("position " + position);
+//                String imageUrl = adapter.getDataList().get(0).imageUrl;
+                String imageUrl = adapter.getItem(position).imageUrl;
+                UIHelper.startImagesDetail(getActivity(),imageUrl,location[0],location[1],width,height);
+            }
+        }
     }
 
     @Override
@@ -105,9 +155,7 @@ public class ImagesListFragment extends BaseFragment {
 
         @Override
         public void onSuccess(ResponseImagesListEntity response) {
-
             System.out.println("response " + response);
-
             if (null == response) {
                 return;
             }

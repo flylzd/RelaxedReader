@@ -84,7 +84,6 @@ public class MainActivity extends BaseActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MainActivity.this, "position == " + position, Toast.LENGTH_SHORT).show();
                 currentMenuCheckedPos = position;
                 drawerLayout.closeDrawers();
                 containerViewPager.setCurrentItem(currentMenuCheckedPos);

@@ -13,11 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.lemon.kohttp.KOHttpClientManager;
+import com.lemon.library.kocore.eventbus.EventCenter;
 import com.lemon.reader.api.ApiClient;
 
 import java.lang.reflect.Field;
 
 import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
 
 public abstract class BaseLazyFragment extends Fragment {
 
@@ -49,6 +51,9 @@ public abstract class BaseLazyFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (isBindEventBus()) {
+            EventBus.getDefault().register(this);
+        }
     }
 
     @Override
@@ -86,6 +91,14 @@ public abstract class BaseLazyFragment extends Fragment {
         super.onDestroyView();
         ButterKnife.unbind(this);
         KOHttpClientManager.cancel(TAG);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (isBindEventBus()) {
+            EventBus.getDefault().unregister(this);
+        }
     }
 
     @Override
@@ -181,5 +194,15 @@ public abstract class BaseLazyFragment extends Fragment {
     protected abstract void initView();
 
     protected abstract int getContentViewLayoutID();
+
+    protected abstract boolean isBindEventBus();
+
+    protected abstract void onEventBusHandler(EventCenter eventCenter);
+
+    public void onEventMainThread(EventCenter eventCenter) {
+        if (null != eventCenter) {
+            onEventBusHandler(eventCenter);
+        }
+    }
 
 }

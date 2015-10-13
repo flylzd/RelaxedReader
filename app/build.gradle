@@ -37,6 +37,7 @@ dependencies {
     compile 'com.balysv:material-ripple:1.0.2'
     compile 'com.ogaclejapan.smarttablayout:library:1.4.2@aar'
     compile 'com.github.bumptech.glide:glide:3.6.1'
+    compile 'de.greenrobot:eventbus:2.4.0'
 
     compile project(':kocore')
     compile project(':kohttp')

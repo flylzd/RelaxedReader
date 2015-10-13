@@ -3,8 +3,12 @@ package com.lemon.reader.base;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.lemon.library.kocore.eventbus.EventCenter;
 import com.lemon.library.kocore.utils.StatusBarCompatUtils;
 import com.lemon.reader.AppManager;
+
+import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
 
 /**
  * 作者：lemon
@@ -21,6 +25,10 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
             getBundleExtras(extras);
         }
 
+        if (isBindEventBus()) {
+            EventBus.getDefault().register(this);
+        }
+
         AppManager.getInstance().addActivity(this);
 
         beforeSetContentView();
@@ -30,6 +38,7 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
         } else {
             throw new IllegalArgumentException("You must return a right contentView layout resource Id");
         }
+        ButterKnife.bind(this);
         afterSetContentView();
 
         if (hasStatusBarTint()) {
@@ -72,6 +81,15 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
 //        }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
+        if (isBindEventBus()) {
+            EventBus.getDefault().unregister(this);
+        }
+    }
+
     protected abstract void getBundleExtras(Bundle extras);
 
     protected abstract void beforeSetContentView();
@@ -85,5 +103,15 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
     protected abstract boolean hasStatusBarTint();
 
     protected abstract int getStatusBarTintResourceId();
+
+    protected abstract boolean isBindEventBus();
+
+    protected abstract void onEventBusHandler(EventCenter eventCenter);
+
+    public void onEventMainThread(EventCenter eventCenter) {
+        if (null != eventCenter) {
+            onEventBusHandler(eventCenter);
+        }
+    }
 
 }
